@@ -1,59 +1,69 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Notification UI</title>
+  <meta charset="UTF-8" />
+  <title>Fancy FiveM UI</title>
   <style>
-    * {
+    body {
       margin: 0;
       padding: 0;
-      box-sizing: border-box;
-      font-family: "Segoe UI", sans-serif;
-    }
-
-    body {
       background: transparent;
+      font-family: 'Segoe UI', sans-serif;
       overflow: hidden;
     }
 
-    .notif {
+    .menu {
       position: absolute;
-      top: 15%;
-      left: 50%;
-      transform: translateX(-50%);
-      background: rgba(30, 30, 30, 0.9);
+      top: 30px;
+      left: 30px;
+      width: 260px;
+      background: rgba(20, 20, 20, 0.85);
+      border-radius: 14px;
+      box-shadow: 0 0 15px rgba(255, 255, 0, 0.25);
+      backdrop-filter: blur(10px);
+      padding: 20px;
       color: #fff;
-      padding: 16px 28px;
-      border-radius: 12px;
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
-      opacity: 0;
-      transition: all 0.4s ease;
-      font-size: 18px;
-      pointer-events: none;
+      transition: all 0.3s ease;
     }
 
-    .notif.show {
-      opacity: 1;
-      transform: translateX(-50%) translateY(0);
+    .menu h1 {
+      margin: 0;
+      font-size: 22px;
+      color: yellow;
+      margin-bottom: 12px;
+      border-bottom: 1px solid #fff2;
+      padding-bottom: 6px;
+    }
+
+    .menu ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .menu ul li {
+      padding: 10px;
+      margin-bottom: 8px;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 8px;
+      transition: background 0.2s ease;
+      cursor: pointer;
+    }
+
+    .menu ul li:hover {
+      background: rgba(255, 255, 0, 0.15);
     }
   </style>
 </head>
 <body>
-
-  <div class="notif" id="notifBox">تم الضغط على زر U ✅</div>
-
-  <script>
-    window.addEventListener('message', function (event) {
-      if (event.data.type === 'showNotif') {
-        const box = document.getElementById('notifBox');
-        box.classList.add('show');
-
-        setTimeout(() => {
-          box.classList.remove('show');
-        }, 2500);
-      }
-    });
-  </script>
-
+  <div class="menu">
+    <h1>🎮 Aura Menu</h1>
+    <ul>
+      <li>Teleport</li>
+      <li>God Mode</li>
+      <li>Give Weapon</li>
+      <li>Spawn Car</li>
+    </ul>
+  </div>
 </body>
 </html>
