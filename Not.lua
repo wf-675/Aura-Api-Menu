@@ -1,27 +1,18 @@
--- تأكد من إن الإكزكيوتر يدعم NUI/WebView
+-- رابط واجهة HTML
+local url = "https://raw.githubusercontent.com/wf-675/Aura-Api-Menu/refs/heads/main/index.html"
 
--- رابط ملف HTML اللي رفعته
-local htmlURL = "https://raw.githubusercontent.com/wf-675/Aura-Api-Menu/refs/heads/main/index.html"
+-- إنشاء DUI وعرضها داخل اللعبة
+local dui = CreateDui(url, 600, 400)
+local handle = GetDuiHandle(dui)
 
--- إنشاء DUI (واجهة عرض HTML داخل اللعبة)
-local duiObj = CreateDui(htmlURL, 600, 400)
-local dui = GetDuiHandle(duiObj)
+-- نربط الـ DUI كـ Texture
+local txd = CreateRuntimeTxd("aura_ui_txd")
+local duiTexture = CreateRuntimeTextureFromDuiHandle(txd, "aura_ui_tex", handle)
 
--- إنشاء Textures للعرض
-local txd = CreateRuntimeTxd("notif_texture")
-local duiTex = CreateRuntimeTextureFromDuiHandle(txd, "notif_page", dui)
-
--- عرض الواجهة على HUD دائمًا
+-- نعرض الـ UI على الشاشة
 Citizen.CreateThread(function()
     while true do
-        DrawSprite("notif_texture", "notif_page", 0.5, 0.5, 1.0, 1.0, 0.0, 255, 255, 255, 255)
+        DrawSprite("aura_ui_txd", "aura_ui_tex", 0.17, 0.18, 0.34, 0.40, 0.0, 255, 255, 255, 255)
         Wait(0)
     end
 end)
-
--- الأمر اللي يرسل إشعار (زر U)
-RegisterCommand("show_u_notif", function()
-    SendNUIMessage({ type = "showNotif" })
-end)
-
-RegisterKeyMapping("show_u_notif", "Show Notification", "keyboard", "U")
