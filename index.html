@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <title>Lean Menu UI</title>
   <style>
-    body {
+    html, body {
       margin: 0;
       padding: 0;
       background: transparent;
@@ -17,7 +17,7 @@
       top: 30px;
       left: 30px;
       width: 300px;
-      background: rgba(20, 20, 20, 0.95);
+      background: rgba(20, 20, 20, 0.92);
       border-radius: 10px;
       box-shadow: 0 0 20px rgba(0, 255, 0, 0.3);
       color: #fff;
@@ -104,12 +104,12 @@
   </div>
 
   <script>
-    let visible = false;
+    let menuVisible = false;
 
-    window.addEventListener('message', function (event) {
-      if (event.data.type === 'toggleMenu') {
-        visible = !visible;
-        document.getElementById('menu').style.display = visible ? 'block' : 'none';
+    document.addEventListener('keydown', function (e) {
+      if (e.code === 'Home') {
+        menuVisible = !menuVisible;
+        document.getElementById('menu').style.display = menuVisible ? 'block' : 'none';
       }
     });
   </script>
