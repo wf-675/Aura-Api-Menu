@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Fancy FiveM UI</title>
+  <title>Lean Menu UI</title>
   <style>
     body {
       margin: 0;
@@ -12,58 +12,106 @@
       overflow: hidden;
     }
 
-    .menu {
+    #menu {
       position: absolute;
       top: 30px;
       left: 30px;
-      width: 260px;
-      background: rgba(20, 20, 20, 0.85);
-      border-radius: 14px;
-      box-shadow: 0 0 15px rgba(255, 255, 0, 0.25);
-      backdrop-filter: blur(10px);
-      padding: 20px;
+      width: 300px;
+      background: rgba(20, 20, 20, 0.95);
+      border-radius: 10px;
+      box-shadow: 0 0 20px rgba(0, 255, 0, 0.3);
       color: #fff;
-      transition: all 0.3s ease;
+      display: none;
+      animation: fadeIn 0.3s ease;
     }
 
-    .menu h1 {
-      margin: 0;
-      font-size: 22px;
-      color: yellow;
-      margin-bottom: 12px;
-      border-bottom: 1px solid #fff2;
-      padding-bottom: 6px;
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
-    .menu ul {
+    .header {
+      background: #0f0f0f;
+      padding: 10px;
+      text-align: center;
+      border-top-left-radius: 10px;
+      border-top-right-radius: 10px;
+    }
+
+    .header img {
+      max-width: 100%;
+      border-radius: 6px;
+    }
+
+    .title {
+      font-weight: bold;
+      font-size: 18px;
+      padding: 10px;
+      background: #111;
+      text-align: center;
+      border-bottom: 1px solid #333;
+    }
+
+    ul.menu-items {
       list-style: none;
       padding: 0;
       margin: 0;
     }
 
-    .menu ul li {
-      padding: 10px;
-      margin-bottom: 8px;
-      background: rgba(255, 255, 255, 0.05);
-      border-radius: 8px;
-      transition: background 0.2s ease;
+    ul.menu-items li {
+      padding: 12px 16px;
+      border-bottom: 1px solid #222;
       cursor: pointer;
+      transition: background 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
     }
 
-    .menu ul li:hover {
-      background: rgba(255, 255, 0, 0.15);
+    ul.menu-items li:hover {
+      background: rgba(0, 255, 0, 0.15);
+    }
+
+    .footer {
+      font-size: 12px;
+      text-align: center;
+      padding: 8px;
+      background: #111;
+      border-bottom-left-radius: 10px;
+      border-bottom-right-radius: 10px;
+      color: #888;
     }
   </style>
 </head>
 <body>
-  <div class="menu">
-    <h1>🎮 Aura Menu</h1>
-    <ul>
-      <li>Teleport</li>
-      <li>God Mode</li>
-      <li>Give Weapon</li>
-      <li>Spawn Car</li>
+  <div id="menu">
+    <div class="header">
+      <img src="https://raw.githubusercontent.com/wf-675/Aura-Api-Menu/main/banner.png" alt="Lean Menu" />
+    </div>
+    <div class="title">HOME</div>
+    <ul class="menu-items">
+      <li>Self <span>➞</span></li>
+      <li>Online <span>➞</span></li>
+      <li>Combat/Weapons <span>➞</span></li>
+      <li>Visual <span>➞</span></li>
+      <li>Vehicle <span>➞</span></li>
+      <li>Miscellaneous <span>➞</span></li>
+      <li>Destructive <span>➞</span></li>
+      <li>Triggers <span>➞</span></li>
+      <li>Settings <span>➞</span></li>
     </ul>
+    <div class="footer">Version: Beta | 24Hrs ago (pls report bugs)</div>
   </div>
+
+  <script>
+    let visible = false;
+
+    window.addEventListener('message', function (event) {
+      if (event.data.type === 'toggleMenu') {
+        visible = !visible;
+        document.getElementById('menu').style.display = visible ? 'block' : 'none';
+      }
+    });
+  </script>
 </body>
 </html>
