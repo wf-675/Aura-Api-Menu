@@ -81,8 +81,6 @@ function HandleDUIMessage(data)
         print("Authentication successful for key: " .. (data.key or "unknown"))
         
         -- يمكن هنا تحميل سكريپت إضافي أو تفعيل ميزات
-        -- مثال:
-        -- ExecuteCommand("chatmessage system Welcome to Aura Menu!")
         
     elseif data.type == "aura_category_selected" then
         AuraDUI.currentCategory = data.category
@@ -104,7 +102,6 @@ function HandleCategorySelection(category)
     if category == "self" then
         print("Opening player options...")
         -- هنا يمكن إضافة وظائف اللاعب
-        -- مثال: heal, armor, etc.
         
     elseif category == "online" then
         print("Opening online players menu...")
@@ -114,4 +111,76 @@ function HandleCategorySelection(category)
         print("Opening weapons menu...")
         -- قائمة الأسلحة والقتال
         
-    elseif category == "
+    elseif category == "visual" then
+        print("Opening visual effects...")
+        -- تأثيرات بصرية
+        
+    elseif category == "vehicle" then
+        print("Opening vehicle options...")
+        -- خيارات المركبات
+        
+    elseif category == "world" then
+        print("Opening world options...")
+        -- خيارات العالم
+        
+    elseif category == "misc" then
+        print("Opening miscellaneous...")
+        -- متنوعات
+        
+    elseif category == "settings" then
+        print("Opening settings...")
+        -- الإعدادات
+    end
+end
+
+-- ===== Thread الرسم =====
+
+Citizen.CreateThread(function()
+    -- إنشاء DUI عند البدء
+    CreateAuraDUI()
+    
+    while true do
+        Citizen.Wait(0)
+        
+        -- رسم DUI على الشاشة
+        if AuraDUI.isVisible and AuraDUI.txd and AuraDUI.texture then
+            DrawSprite("aura_menu_txd", "aura_menu_tex", 
+                      MENU_CONFIG.posX, MENU_CONFIG.posY, 
+                      MENU_CONFIG.scaleX, MENU_CONFIG.scaleY, 
+                      0.0, 255, 255, 255, 255)
+        end
+    end
+end)
+
+-- ===== معالج الأحداث =====
+
+-- استقبال رسائل من HTML
+RegisterNUICallback('messageHandler', function(data, cb)
+    HandleDUIMessage(data)
+    cb('ok')
+end)
+
+-- تنظيف عند إنهاء الـ resource
+AddEventHandler('onResourceStop', function(resourceName)
+    if (GetCurrentResourceName() ~= resourceName) then
+        return
+    end
+    
+    DestroyAuraDUI()
+end)
+
+-- رسائل البدء
+print("==============================")
+print("AURA HTML DUI MENU LOADED")
+print("URL: " .. MENU_CONFIG.url)
+print("==============================")
+
+-- تأكد من تحميل DUI
+Citizen.CreateThread(function()
+    Citizen.Wait(2000)
+    if AuraDUI.isVisible then
+        print("Aura DUI is visible and running")
+    else
+        print("WARNING: Aura DUI failed to load")
+    end
+end)
